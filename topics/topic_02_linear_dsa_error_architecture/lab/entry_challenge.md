@@ -1,17 +1,20 @@
-# Entry Challenge: Event Log and Safe Index Access
+# Entry Challenge: Event Id and Source Indexes
 
-Build the first SentinelFlow event-log layer using a Python list as a dynamic array.
+Build the first SentinelFlow in-memory index layer for event lookup.
 
 ## Requirements
 
 - Accept a sequence of event dictionaries.
-- Validate records before they enter the event log.
-- Store events in arrival order.
-- Read one event by index with a clear error when the index is invalid.
-- Return immutable snapshots of event ids and replay windows.
+- Validate and normalize records before indexing them.
+- Preserve arrival order in the normalized `events` snapshot.
+- Build an id index that maps each `event_id` to its normalized record.
+- Build a source index that maps each source to its events in arrival order.
+- Build a severity index that maps each severity level to its events in arrival order.
+- Reject duplicate event ids with a clear error.
+- Return immutable snapshots from grouped indexes so callers cannot mutate internal lists.
 
 ## Complexity questions
 
-- Why is appending to a Python list amortized O(1)?
-- Why is reading by index O(1)?
-- Why does copying a replay window cost O(k)?
+- Why does an id dictionary make event lookup average O(1)?
+- Why does building all indexes cost O(n) plus tag and metadata normalization cost?
+- What extra O(n) space do the indexes use compared with scanning a list?

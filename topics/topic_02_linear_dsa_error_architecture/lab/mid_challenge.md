@@ -1,17 +1,19 @@
-# Mid Challenge: Source and Severity Indexes
+# Mid Challenge: Tag Registry and Defensive Filtering
 
-Build secondary indexes for SentinelFlow event records using dictionaries and sets.
+Build a hash-backed tag registry and filtering helper for SentinelFlow event records.
 
 ## Requirements
 
-- Validate incoming records.
-- Build a source index from source name to event ids.
-- Build a severity index from severity level to event ids.
-- Preserve event arrival order inside each index bucket.
-- Detect duplicate event ids using set membership.
-- Return empty results for missing lookups.
+- Validate and normalize incoming records.
+- Build a registry that maps each tag to the event ids that contain it.
+- Build a reverse lookup from event id to its normalized tag set.
+- Normalize tag whitespace and reject invalid tag types.
+- Return immutable tag and event-id views.
+- Filter records by a required tag set using average O(1) tag membership per tag.
+- Keep both registry directions consistent if the same event id is added again.
 
 ## Complexity questions
 
-- What is the average-case cost of dictionary insertion?
-- When is a scan better than maintaining an index?
+- Why are set membership checks average O(1)?
+- Why does building the registry cost O(n * t), where t is average tags per event?
+- Why should defensive validation raise TypeError for wrong field types and ValueError for invalid values?
