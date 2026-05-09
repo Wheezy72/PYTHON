@@ -1,22 +1,31 @@
 # Topic 04: Advanced OOP
 
-## Purpose
+Topic 04 turns SentinelFlow into an extensible object model. It covers MRO, cooperative `super`, mixins, ABCs, runtime-checkable protocols, dataclasses, composition, and polymorphic event processors.
 
-MRO, mixins, ABCs, protocols, composition, and polymorphic design.
+## SentinelFlow milestone
 
-## Required structure
+Introduce event processors, storage interfaces, mixins, ABCs, and composition-based services.
 
-- `concepts/` — modular theory files for each major sub-topic.
-- `errors/` — exception deep dives and defensive coding patterns.
-- `dsa/` — data-structure and algorithm implementations related to this topic.
-- `lab/` — three unsolved challenges: entry, mid, and advanced.
-- `solutions/` — implementations for the lab challenges; never duplicate these in `lab/`.
-- `tests/` — validation suite for the topic exercises.
+## Complexity overview
 
-## Complexity focus
+| Operation | Time | Space | Structure |
+| --- | ---: | ---: | --- |
+| Processor dispatch | O(p * c) | O(1) extra | p processors, c processor cost |
+| Registry lookup | O(1) average | O(n) | Dict hash table |
+| In-memory store add | O(1) amortized | O(n) | List dynamic array |
+| Source grouping | O(n) | O(k) | Dict of lists |
+| MRO lookup | O(m) worst | O(m) cached metadata | Class linearization |
 
-Document the relevant time and space complexity for every concept and implementation added to this topic.
+## Learning outcomes
 
-## Project milestone
+- Explain C3 MRO and why cooperative `super()` matters.
+- Use mixins for small reusable behavior.
+- Use ABCs and Protocols to define object contracts.
+- Prefer composition when behavior varies independently.
+- Build a polymorphic SentinelFlow processor pipeline.
 
-To be completed when Topic 04 is developed.
+## Tests
+
+```bash
+python -m unittest discover -s topics/topic_04_advanced_oop/tests -p 'test_suite.py'
+```
