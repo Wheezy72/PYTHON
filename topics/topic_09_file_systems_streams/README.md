@@ -1,22 +1,16 @@
 # Topic 09: File Systems & Streams
 
-## Purpose
+Topic 09 persists and replays SentinelFlow events using pathlib, JSON, JSONL, binary payloads, and buffered streams.
 
-Pathlib, JSON, binary formats, buffering, streaming IO, and file safety.
+## SentinelFlow milestone
 
-## Required structure
+Persist and replay events from JSON, JSONL, binary files, and buffered streams.
 
-- `concepts/` — modular theory files for each major sub-topic.
-- `errors/` — exception deep dives and defensive coding patterns.
-- `dsa/` — data-structure and algorithm implementations related to this topic.
-- `lab/` — three unsolved challenges: entry, mid, and advanced.
-- `solutions/` — implementations for the lab challenges; never duplicate these in `lab/`.
-- `tests/` — validation suite for the topic exercises.
+## Complexity overview
 
-## Complexity focus
-
-Document the relevant time and space complexity for every concept and implementation added to this topic.
-
-## Project milestone
-
-To be completed when Topic 09 is developed.
+| Operation | Time | Space | Structure |
+| --- | ---: | ---: | --- |
+| Write n JSONL events | O(n * encode) | O(1) streaming | Text file buffer |
+| Read JSONL eagerly | O(n) | O(n) | List of dicts |
+| Stream JSONL lazily | O(n) total | O(1) extra | File iterator |
+| Binary encode payload | O(b) | O(b) | Bytes buffer |
