@@ -1,22 +1,22 @@
 # Topic 06: Context Managers
 
-## Purpose
+Topic 06 gives SentinelFlow deterministic resource management through the context manager protocol, `contextlib`, ExitStack, transactional buffers, and explicit exception behavior.
 
-Custom with blocks, resource ownership, teardown safety, and transactional boundaries.
+## SentinelFlow milestone
 
-## Required structure
+Manage event sessions, locks, files, and transactional cleanup with custom context managers.
 
-- `concepts/` — modular theory files for each major sub-topic.
-- `errors/` — exception deep dives and defensive coding patterns.
-- `dsa/` — data-structure and algorithm implementations related to this topic.
-- `lab/` — three unsolved challenges: entry, mid, and advanced.
-- `solutions/` — implementations for the lab challenges; never duplicate these in `lab/`.
-- `tests/` — validation suite for the topic exercises.
+## Complexity overview
 
-## Complexity focus
+| Operation | Time | Space | Structure |
+| --- | ---: | ---: | --- |
+| Enter or exit one manager | O(1) | O(1) | Object protocol |
+| Commit n buffered events | O(n) | O(n) | List buffer |
+| ExitStack cleanup | O(k) | O(k) | Stack of callbacks |
+| Transaction rollback | O(1) | O(n) retained buffer | List clear |
 
-Document the relevant time and space complexity for every concept and implementation added to this topic.
+## Tests
 
-## Project milestone
-
-To be completed when Topic 06 is developed.
+```bash
+python -m unittest discover -s topics/topic_06_context_managers/tests -p 'test_suite.py'
+```

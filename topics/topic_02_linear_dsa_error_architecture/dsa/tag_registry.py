@@ -1,9 +1,10 @@
 """Hash-backed tag registry for SentinelFlow events.
 
 The registry uses dictionaries of sets: tag -> event ids and event id -> tags.
-Adding an event is O(t) average time for t tags. Membership checks are O(1)
-average. Returning frozensets copies k entries in O(k), protecting registry state
-from caller mutation at the cost of extra space.
+Adding a new event is O(t) average time for t tags. Replacing an existing event
+id is O(o + t), where o is the old tag count, because stale reverse-index
+entries must be removed. Membership checks are O(1) average. Returning frozensets
+copies k entries in O(k), protecting registry state at the cost of extra space.
 """
 
 from __future__ import annotations
@@ -28,6 +29,15 @@ class TagRegistry:
         """Add tag relationships for an already-normalized record."""
         event_id = normalized["event_id"]
         tags = {ensure_hashable_tag(tag) for tag in normalized["tags"]}  # type: ignore[union-attr]
+        old_tags = self._tags_by_event.get(event_id)  # type: ignore[arg-type]
+        if old_tags is not None:
+            for old_tag in old_tags:
+                event_ids = self._events_by_tag.get(old_tag)
+                if event_ids is None:
+                    continue
+                event_ids.discard(event_id)  # type: ignore[arg-type]
+                if not event_ids:
+                    del self._events_by_tag[old_tag]
         self._tags_by_event[event_id] = tags  # type: ignore[index]
         for tag in tags:
             self._events_by_tag.setdefault(tag, set()).add(event_id)  # type: ignore[arg-type]

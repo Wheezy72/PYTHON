@@ -201,6 +201,10 @@ class ErrorAndDsaTests(unittest.TestCase):
         self.assertEqual(registry.event_ids_for_tag("edge"), frozenset({"evt-1", "evt-3"}))
         self.assertTrue(registry.has_tag("evt-2", "alert"))
         self.assertEqual(registry.tags_for_event("evt-1"), frozenset({"edge", "temperature"}))
+        registry.add_event(sentinel_record("evt-1", tags=["security"]))
+        self.assertEqual(registry.tags_for_event("evt-1"), frozenset({"security"}))
+        self.assertEqual(registry.event_ids_for_tag("temperature"), frozenset())
+        self.assertEqual(registry.event_ids_for_tag("security"), frozenset({"evt-1", "evt-2"}))
 
         queue = SeverityQueue()
         for record in records:

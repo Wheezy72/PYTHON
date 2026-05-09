@@ -1,22 +1,22 @@
 # Topic 05: The Iterator Protocol & Generators
 
-## Purpose
+Topic 05 makes SentinelFlow stream-oriented. It covers iterator objects, generator functions, generator expressions, lazy pipelines, batching, exhaustion, and memory-efficient processing.
 
-Lazy iteration, generator pipelines, backpressure, and memory-efficient streaming.
+## SentinelFlow milestone
 
-## Required structure
+Stream events lazily from generators and iterator-backed pipelines.
 
-- `concepts/` — modular theory files for each major sub-topic.
-- `errors/` — exception deep dives and defensive coding patterns.
-- `dsa/` — data-structure and algorithm implementations related to this topic.
-- `lab/` — three unsolved challenges: entry, mid, and advanced.
-- `solutions/` — implementations for the lab challenges; never duplicate these in `lab/`.
-- `tests/` — validation suite for the topic exercises.
+## Complexity overview
 
-## Complexity focus
+| Operation | Time | Space | Structure |
+| --- | ---: | ---: | --- |
+| Next item | O(1) plus source cost | O(1) | Iterator state |
+| Lazy filter/map | O(n * stage cost) | O(1) extra | Generator frame |
+| Batch size b | O(b) per batch | O(b) | Tuple buffer |
+| Replayable materialization | O(n) | O(n) | List cache |
 
-Document the relevant time and space complexity for every concept and implementation added to this topic.
+## Tests
 
-## Project milestone
-
-To be completed when Topic 05 is developed.
+```bash
+python -m unittest discover -s topics/topic_05_iterator_protocol_generators/tests -p 'test_suite.py'
+```
