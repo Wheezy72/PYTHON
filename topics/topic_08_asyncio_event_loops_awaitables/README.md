@@ -1,22 +1,16 @@
-# Topic 08: Concurrency 2
+# Topic 08: Concurrency 2 — Asyncio, Event Loops, Awaitables
 
-## Purpose
+Topic 08 adds cooperative SentinelFlow ingestion with coroutines, tasks, async queues, cancellation, and bounded async workers.
 
-Asyncio, event loops, awaitables, tasks, cancellation, and cooperative scheduling.
+## SentinelFlow milestone
 
-## Required structure
+Add asyncio ingestion, async queues, cancellation handling, and event-loop-aware processors.
 
-- `concepts/` — modular theory files for each major sub-topic.
-- `errors/` — exception deep dives and defensive coding patterns.
-- `dsa/` — data-structure and algorithm implementations related to this topic.
-- `lab/` — three unsolved challenges: entry, mid, and advanced.
-- `solutions/` — implementations for the lab challenges; never duplicate these in `lab/`.
-- `tests/` — validation suite for the topic exercises.
+## Complexity overview
 
-## Complexity focus
-
-Document the relevant time and space complexity for every concept and implementation added to this topic.
-
-## Project milestone
-
-To be completed when Topic 08 is developed.
+| Operation | Time | Space | Structure |
+| --- | ---: | ---: | --- |
+| Await one coroutine | O(work) | O(1) | Coroutine frame |
+| Gather n tasks | O(max task time) ideal | O(n) | Task set |
+| Async queue put/get | O(1) | O(n) | FIFO queue |
+| Bounded worker run | O(n * work / workers) ideal | O(n) | Queue plus tasks |

@@ -1,22 +1,22 @@
-# Topic 07: Concurrency 1
+# Topic 07: Concurrency 1 — GIL, Threading vs Multiprocessing
 
-## Purpose
+Topic 07 introduces SentinelFlow worker execution with threads, process-friendly chunking, locks, and queues.
 
-GIL behavior, threading, multiprocessing, queues, locks, and CPU/I/O tradeoffs.
+## SentinelFlow milestone
 
-## Required structure
+Add threaded and multiprocessing ingestion workers; compare GIL effects for CPU-bound and I/O-bound work.
 
-- `concepts/` — modular theory files for each major sub-topic.
-- `errors/` — exception deep dives and defensive coding patterns.
-- `dsa/` — data-structure and algorithm implementations related to this topic.
-- `lab/` — three unsolved challenges: entry, mid, and advanced.
-- `solutions/` — implementations for the lab challenges; never duplicate these in `lab/`.
-- `tests/` — validation suite for the topic exercises.
+## Complexity overview
 
-## Complexity focus
+| Operation | Time | Space | Structure |
+| --- | ---: | ---: | --- |
+| Threaded map | O(n * work / workers) ideal | O(n) | Thread pool futures |
+| Queue drain | O(n) | O(n) | FIFO queue |
+| Locked counter update | O(1) | O(1) | Mutex-protected integer |
+| Chunk records | O(n) | O(n) | List chunks |
 
-Document the relevant time and space complexity for every concept and implementation added to this topic.
+## Tests
 
-## Project milestone
-
-To be completed when Topic 07 is developed.
+```bash
+python -m unittest discover -s topics/topic_07_concurrency_threading_multiprocessing/tests -p 'test_suite.py'
+```
