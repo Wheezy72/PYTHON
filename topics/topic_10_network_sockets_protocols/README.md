@@ -1,22 +1,38 @@
 # Topic 10: Network Sockets & Protocols
 
-## Purpose
+This topic extends SentinelFlow with production-oriented Python systems skills while preserving the repository rules: modular concepts, explicit error handling, integrated DSA, separated labs, separated solutions, and automated tests.
 
-TCP, UDP, framing, protocol design, socket lifecycle, and network errors.
+## SentinelFlow milestone
 
-## Required structure
+Implement TCP/UDP event ingestion concepts with framing, parsing, timeouts, and protocol errors.
 
-- `concepts/` — modular theory files for each major sub-topic.
-- `errors/` — exception deep dives and defensive coding patterns.
-- `dsa/` — data-structure and algorithm implementations related to this topic.
-- `lab/` — three unsolved challenges: entry, mid, and advanced.
-- `solutions/` — implementations for the lab challenges; never duplicate these in `lab/`.
-- `tests/` — validation suite for the topic exercises.
+## Complexity overview
 
-## Complexity focus
+| Operation | Time | Space | Backing structure |
+| --- | ---: | ---: | --- |
+| Validate one record/request | O(f) | O(f) | Dictionary fields |
+| Build an index or summary | O(n) | O(k) | Hash table / list |
+| Stream or pipeline n items | O(n * c) | O(1) to O(n) | Iterator/list depending on output |
+| Encode/decode payload | O(b) | O(b) | Bytes buffer |
 
-Document the relevant time and space complexity for every concept and implementation added to this topic.
+## Learning outcomes
 
-## Project milestone
+- Connect the topic's Python API to SentinelFlow's event-processing architecture.
+- Explain time and space complexity instead of treating APIs as magic.
+- Handle failures explicitly with small defensive helpers.
+- Keep exercises and reference implementations physically separated.
 
-To be completed when Topic 10 is developed.
+## Module guide
+
+- `concepts/` contains focused theory-backed helper modules.
+- `errors/` contains defensive failure-mode modules.
+- `dsa/` contains reusable structures used by the solutions.
+- `lab/` contains prompt-only challenge files.
+- `solutions/` contains importable reference implementations.
+- `tests/test_suite.py` validates the slice.
+
+## Running tests
+
+```bash
+python -m unittest discover -s topics/topic_10_network_sockets_protocols/tests -p 'test_suite.py'
+```
